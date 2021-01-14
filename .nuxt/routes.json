@@ -1,0 +1,37 @@
+[
+  {
+    "name": "insights",
+    "path": "/insights",
+    "component": "/home/martin/time-tracker/pages/insights.vue",
+    "chunkName": "pages/insights",
+    "_name": "_1cb53f98"
+  },
+  {
+    "name": "projects",
+    "path": "/projects",
+    "component": "/home/martin/time-tracker/pages/projects.vue",
+    "chunkName": "pages/projects",
+    "_name": "_ddfe8e92"
+  },
+  {
+    "name": "reports",
+    "path": "/reports",
+    "component": "/home/martin/time-tracker/pages/reports.vue",
+    "chunkName": "pages/reports",
+    "_name": "_70fde992"
+  },
+  {
+    "name": "tags",
+    "path": "/tags",
+    "component": "/home/martin/time-tracker/pages/tags.vue",
+    "chunkName": "pages/tags",
+    "_name": "_523bf154"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/martin/time-tracker/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_3a38f1e5"
+  }
+]
