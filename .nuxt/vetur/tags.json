@@ -17,6 +17,12 @@
   "LazySidebar": {
     "description": "Auto imported from /components/Sidebar.vue"
   },
+  "Timer": {
+    "description": "Auto imported from /components/Timer.vue"
+  },
+  "LazyTimer": {
+    "description": "Auto imported from /components/Timer.vue"
+  },
   "Tracker": {
     "description": "Auto imported from /components/Tracker.vue"
   },

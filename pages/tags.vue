@@ -22,7 +22,7 @@ export default {
     justify-content: center;
     align-items: center;
     text-align: center;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 6fr;
 }
 
 </style>
