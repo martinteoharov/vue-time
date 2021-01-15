@@ -8,7 +8,6 @@
 export default {
     data: () => ({
         updateInterval: null,
-
         count: { seconds: 0, minutes: 0, hours: 0 },
         dateStarted: null,
         speed: 1000,
@@ -22,27 +21,26 @@ export default {
             this.count.hours = Math.floor((total / (1000 * 60 * 60)) % 24);
         },
         start() {
-            // If clock has been stopped (not paused) before, we initialize the data
-            if(this.dateStarted === null){
-                console.log(`Recording started... ${ new Date() }` );
-                this.count.seconds = 0;
-                this.count.minutes = 0;
-                this.count.hours = 0;
-                this.dateStarted = new Date();
-            } else {
-                this.dateStarted = new Date();
-                console.log(`Recording resumed... ${ this.dateStarted }` );
-            }
+            console.log(`Recording started... ${ new Date() }` );
+
+            // Initialize data
+            this.count.seconds = 0;
+            this.count.minutes = 0;
+            this.count.hours = 0;
+            this.dateStarted = new Date();
 
             // Set updateInterval
             this.updateInterval = setInterval(this.updateTimeRemaining, this.speed); 
         },
-        pause() {
-            console.log(`Recording paused... ${ this.timePassed }` );
-            this.datePaused = new Date();
+        stop() {
+            console.log(`Recording stopped... ${ this.timePassed }` );
 
             // Do some data processing here
             // ...
+            this.count.seconds = 0;
+            this.count.minutes = 0;
+            this.count.hours = 0;
+            this.dateStarted = null;
 
             // Stop updating the data for now..
             clearInterval(this.updateInterval);
@@ -59,13 +57,13 @@ export default {
     // Set up event listeners on creation
     created() {
         this.$nuxt.$on('start-timer', this.start);
-        this.$nuxt.$on('pause-timer', this.pause);
+        this.$nuxt.$on('stop-timer', this.stop);
     },
 
     // Clean up event listeners before component is destroyed
     beforeDetroy() {
         this.$nuxt.$off('start-timer', this.start);
-        this.$nuxt.$off('pause-timer', this.pause);
+        this.$nuxt.$off('stop-timer', this.stop);
     }
 }
 </script>

@@ -11,6 +11,17 @@
 
 <script>
 export default {
+    methods: {
+        // Adds an entry container-main
+        addTrackerEntry({name}){
+            console.log(name);
+        }
+    },
+    created(){
+        this.$nuxt.$on('add-entry', (entry) => {
+            this.addTrackerEntry(entry);
+        });
+    }
 }
 </script>
 

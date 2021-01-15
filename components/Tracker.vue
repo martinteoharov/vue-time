@@ -1,9 +1,8 @@
 <template>
     <main class='container-timer shadow-box'>
-        <input type="text" placeholder="What are you working on, bro?"/>
+        <input v-model='input' type="text" placeholder="What are you working on, bro?"/>
         <Timer class="centered-vertically timer"> </Timer>
-        <i @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-pause': isRecording}"></i>
-        <i class="centered-vertically fas fa-stop"></i>
+        <i @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
     </main>
 </template>
 
@@ -11,22 +10,27 @@
 export default {
     data: () => ({
         isRecording: false,
+        input: null
     }),
 
     methods: {
         // Read: https://michaelnthiessen.com/this-is-undefined/
-
         toggleRecording(){
             this.isRecording = !this.isRecording;
 
             if(!this.isRecording){
                 // Stop Recording
-                this.$nuxt.$emit('pause-timer', {});
+                this.$nuxt.$emit('stop-timer', {});
+
+                // Create an entry with the data from the timer.. 
+                // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
+                this.$nuxt.$emit('add-entry', { 'name': this.input });
+
+                // Append entry to template...
 
             } else {
                 // User has started recording..
                 this.$nuxt.$emit('start-timer', {});
-
             }
         },
     },
@@ -47,7 +51,7 @@ export default {
         align-items: center;
         text-align: center;
 
-        grid-template-columns: 8fr 2fr 1fr 1fr;
+        grid-template-columns: 8fr 2fr 1fr;
         grid-template-rows: 1fr;
     }
 
