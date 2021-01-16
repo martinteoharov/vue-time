@@ -3,10 +3,12 @@
         <Sidebar/>
         <div class="container container-main">
             <Tracker/>
-            <div class="container container-entries">
+            <transition-group  enter-active-class="animate__animated animate__backInRight" leave-active-class="animate__backOutUp" 
+                tag='div' class='container container-entries'>
+
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry.startDate" 
                               :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer'/>
-            </div>
+            </transition-group>
         </div>
     </div>
 </template>
@@ -62,6 +64,14 @@ export default {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(8, 1fr);
         grid-row-gap: 10px;
+    }
+
+    /* Transition animations */
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 
 </style>

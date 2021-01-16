@@ -29,5 +29,7 @@
     *::after {
         box-sizing: border-box;
         margin: 0;
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 </style>

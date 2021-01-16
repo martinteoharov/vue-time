@@ -45,7 +45,7 @@ export default {
         bottom: 0;
         left: 0;
         width: 0;
-        height: 10%;
+        height: 5%;
         background: rgba(196, 196, 196, 0.6);
         transition: all .25s;
     }
@@ -55,7 +55,7 @@ export default {
     }
 
     a:hover:after{
-        width: 80%;
-        margin-left: 10%;
+        width: 40%;
+        margin-left: 5%;
     }
 </style>
