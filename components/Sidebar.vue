@@ -31,14 +31,14 @@ export default {
         min-width: 200px;
 
         /* Main Color */
-        color: #534B62;
+        color: #3c354a; 
         /* Main Background Color */
         background-color: #1B1725;
     }
 
     h1 {
         text-align: center;
-        color: #DBBBF5; 
+        color: #efdbff; 
         font-size: 30px;
         line-height: 20vh;
         transition: all 250ms ease-in-out;
@@ -56,7 +56,7 @@ export default {
     }
 
     .button-active {
-        color: #DBBBF5; 
+        color: #efdbff; 
         background-color: inherit;
     }
 

@@ -10,6 +10,7 @@
 export default {
     data: () => ({
         isRecording: false,
+        timer: null,
         input: null
     }),
 
@@ -22,9 +23,13 @@ export default {
                 // Stop Recording
                 this.$nuxt.$emit('stop-timer', {});
 
+                // Store <input> value in $store
+                this.$nuxt.$store.commit('entries/addName', {'name': this.input});
+
                 // Create an entry with the data from the timer.. 
                 // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
-                this.$nuxt.$emit('add-entry', { 'name': this.input });
+                // Access data from $store
+                this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
 
                 // Append entry to template...
 

@@ -28,5 +28,11 @@
   },
   "LazyTracker": {
     "description": "Auto imported from /components/Tracker.vue"
+  },
+  "TrackerEntry": {
+    "description": "Auto imported from /components/TrackerEntry.vue"
+  },
+  "LazyTrackerEntry": {
+    "description": "Auto imported from /components/TrackerEntry.vue"
   }
 }

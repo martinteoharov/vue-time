@@ -37,12 +37,15 @@ export default {
 
             // Do some data processing here
             // ...
+            this.$nuxt.$store.commit('entries/addTimer', {'startDate': this.dateStarted, 'endDate': new Date(), 'timer': this.timePassed });
+
+            // Clear values
             this.count.seconds = 0;
             this.count.minutes = 0;
             this.count.hours = 0;
             this.dateStarted = null;
 
-            // Stop updating the data for now..
+            // Stop updating the data..
             clearInterval(this.updateInterval);
         },
     },
