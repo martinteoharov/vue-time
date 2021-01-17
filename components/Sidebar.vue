@@ -2,8 +2,8 @@
     <main>
         <h1> TimeTrack </h1>
         <NuxtLink tag='div' :to="link.link" class="button" v-for="(link, index) in links" :key="index">
-            <i class="fas" :class="link.icon"> </i>
-            <Button v-bind:title='link.name'></Button>
+        <i class="fas" :class="link.icon"> </i>
+        <Button v-bind:title='link.name'></Button>
         </NuxtLink>
     </main>
 </template>

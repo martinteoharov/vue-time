@@ -3,7 +3,7 @@
         <Sidebar/>
         <div class="container container-main">
             <Tracker/>
-            <transition-group  enter-active-class="animate__animated animate__backInRight" leave-active-class="animate__backOutUp" 
+            <transition-group  enter-active-class="animate__animated animate__slideInRight" leave-active-class="animate__animated animate__backOutUp" 
                 tag='div' class='container container-entries'>
 
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry.startDate" 
@@ -23,12 +23,19 @@ export default {
         addTrackerEntry({name, startDate, endDate, timer}){
             console.log('New entry created..');
             
-            this.trackerEntries.push({name, 'startDate': startDate.toLocaleDateString(), 'endDate': endDate.toLocaleDateString(), timer});
+            this.trackerEntries.push({name, 'startDate': startDate.toLocaleTimeString(), 'endDate': endDate.toLocaleTimeString(), timer});
         }
     },
     created(){
         this.$nuxt.$on('add-entry', (entry) => {
             this.addTrackerEntry(entry);
+        });
+
+        this.$nuxt.$on('delete-entry', ({startDate}) => {
+            for(const el in this.trackerEntries){
+                if(this.trackerEntries[el].startDate === startDate) 
+                    this.trackerEntries.splice(el, 1);
+            }
         });
     }
 }

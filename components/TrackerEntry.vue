@@ -1,8 +1,11 @@
 <template>
-    <div class='container-entry shadow-box'>
+    <div class='container-entry shadow-box hover-fx'>
         <input v-bind:value="name"/>
         <p>  {{ `${startDate} - ${endDate} `}}  </p>
         <p>  {{ timer }} </p>
+        <div @click='deleteEntry' class='delete-entry'>
+            <p> Delete </p>
+        </div>
     </div>
 </template>
 
@@ -16,6 +19,14 @@ export default {
     },
     data: () => ({
     }),
+    methods: {
+        deleteEntry(){
+            console.log(`Delete entry ${this.startDate}`);
+
+            // Delete entry... with $this.startDate as identifier
+            this.$nuxt.$emit('delete-entry', {'name': this.name, 'startDate': this.startDate, 'endDate': this.endDate, 'timer': this.timer});
+        }
+    }
 }
 </script>
 
@@ -35,7 +46,7 @@ export default {
         justify-content: center;
         align-items: center;
 
-        grid-template-columns: 6fr 1.5fr 1fr;
+        grid-template-columns: 6fr 1.5fr 0.75fr .5fr .1fr;
         grid-template-rows: 1fr;
     }
 
@@ -61,6 +72,21 @@ export default {
         border: 0px;
         background-color: rgba(0, 0, 0, 0.0);
     }
+    div.delete-entry {
+        height: 100%;
+
+        /* Center the text */
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        visibility: hidden;
+    }
+    .hover-fx:hover .delete-entry {
+        background-color: rgba(245, 24, 58, 0.6);
+        visibility: visible;
+        user-select: none;
+    }
+
 
 
 </style>

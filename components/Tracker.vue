@@ -1,8 +1,8 @@
 <template>
     <main class='container-timer shadow-box'>
-        <input v-model='input' type="text" placeholder="What are you working on, bro?"/>
+        <input ref='trackerInput' v-model='input' type="text" placeholder="What are you working on, bro?"/>
         <Timer class="centered-vertically timer"> </Timer>
-        <i @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
+        <i tabindex=0 @keydown.enter="toggleRecording" @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
     </main>
 </template>
 
@@ -28,10 +28,11 @@ export default {
 
                 // Create an entry with the data from the timer.. 
                 // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
-                // Access data from $store
+                // Access data from $store & Append entry to template...
                 this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
 
-                // Append entry to template...
+                // Clear input box
+                this.input = '';
 
             } else {
                 // User has started recording..
@@ -39,6 +40,21 @@ export default {
             }
         },
     },
+    created() {
+        window.addEventListener('keydown', e => {
+            // On keyPress 'enter' toggle the recording and unfocus input box
+            if(e.keyCode === 13){
+                this.toggleRecording();
+                this.$refs.trackerInput.blur();
+            }
+
+            // On keyPress 'a' focus the input box
+            if(e.keyCode === 65){
+                // Avoid the 'a' that is instantly entered in the input box at first
+                setTimeout(() => this.$refs.trackerInput.focus(), 10); // Super hacky, but we are experts so everything is allowed.
+            }
+        });
+    }
 }
 </script>
 
@@ -82,6 +98,11 @@ export default {
         border: 0px;
         text-indent: 3%;
         font-size: 20px;
+        opacity: 0.6;
+    }
+    input:focus {
+        opacity: 1;
+
     }
 
     .timer {
