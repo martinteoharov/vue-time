@@ -86,7 +86,4 @@ export default {
         visibility: visible;
         user-select: none;
     }
-
-
-
 </style>

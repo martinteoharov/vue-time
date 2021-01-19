@@ -69,8 +69,9 @@ export default {
 
         padding-top: 5%;
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(8, 1fr);
+        grid-auto-rows: 10vh;
         grid-row-gap: 10px;
+        overflow-y: scroll;
     }
 
     /* Transition animations */

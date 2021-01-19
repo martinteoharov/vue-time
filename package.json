@@ -9,13 +9,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.5",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6"
   },
   "devDependencies": {
     "eslint": "^7.17.0",
-    "eslint-plugin-vue": "^7.4.1",
-    "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1"
+    "eslint-plugin-vue": "^7.4.1"
   }
 }

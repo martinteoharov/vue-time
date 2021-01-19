@@ -7,6 +7,13 @@
     "_name": "_1cb53f98"
   },
   {
+    "name": "login",
+    "path": "/login",
+    "component": "/home/martin/time-tracker/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_03e094fc"
+  },
+  {
     "name": "projects",
     "path": "/projects",
     "component": "/home/martin/time-tracker/pages/projects.vue",

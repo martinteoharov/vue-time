@@ -31,7 +31,7 @@ export default {
         min-width: 200px;
 
         /* Main Color */
-        color: #3c354a; 
+        color: #595959; 
         /* Main Background Color */
         background-color: #1B1725;
     }

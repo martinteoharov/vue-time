@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped>
 
     a {
         display: block;
@@ -30,7 +30,7 @@ export default {
         color: inherit;
         letter-spacing: 2px;
         position: relative;
-        transition: all .35s;
+        transition: all .25s;
     }
 
     a span {
@@ -38,24 +38,24 @@ export default {
         z-index: 2;
     }
 
-    a:after{
-        border-radius: 5px;
+    span:after{
+        border-radius: 1px;
         position: absolute;
         content: "";
         bottom: 0;
         left: 0;
         width: 0;
-        height: 5%;
-        background: rgba(196, 196, 196, 0.6);
+        height: 20%;
+        background: rgba(196, 196, 196, 0.4);
         transition: all .25s;
     }
 
-    a:hover{
+    span:hover{
         color: #fff;
     }
 
-    a:hover:after{
-        width: 40%;
-        margin-left: 5%;
+    span:hover:after{
+        margin-top: 5px;
+        width: 100%;
     }
 </style>
