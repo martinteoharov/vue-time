@@ -1,4 +1,6 @@
-# time-tracker
+# Vue-Time
+
+A simplified SPA clone of Toggl.com
 
 ## Build Setup
 
