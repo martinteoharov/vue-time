@@ -14,11 +14,32 @@
     "_name": "_03e094fc"
   },
   {
+    "name": "logout",
+    "path": "/logout",
+    "component": "/home/martin/time-tracker/pages/logout.vue",
+    "chunkName": "pages/logout",
+    "_name": "_7579d9f2"
+  },
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "/home/martin/time-tracker/pages/profile.vue",
+    "chunkName": "pages/profile",
+    "_name": "_ed87c708"
+  },
+  {
     "name": "projects",
     "path": "/projects",
     "component": "/home/martin/time-tracker/pages/projects.vue",
     "chunkName": "pages/projects",
     "_name": "_ddfe8e92"
+  },
+  {
+    "name": "register",
+    "path": "/register",
+    "component": "/home/martin/time-tracker/pages/register.vue",
+    "chunkName": "pages/register",
+    "_name": "_1baadb40"
   },
   {
     "name": "reports",

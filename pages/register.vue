@@ -1,25 +1,44 @@
 <template>
-    <form method="post" @submit.prevent="login">
-        <p> Email: </p>
-        <input name='email' type='email' v-model='email' required />
-        <p> Password: </p>
-        <input name='password' type='password' v-model='password' required />
-        <button > Submit </button>
-        <a href='/register'> Register </a>
+    <form method="post" @submit.prevent="register">
+        <p>Username</p>
+        <input type="text" name="username" v-model="username" required/>
+
+        <p>Email</p>
+        <input type="email" name="email" v-model="email" required />
+
+        <p>Password</p>
+        <input type="password" name="password" v-model="password" required />
+
+        <button type="submit">Register</button>
+        <a href='/login'> Login </a>
     </form>
-  
 </template>
 
 <script>
+
 export default {
-    data: () => ({
-        email: '',
-        password: '',
-        error: null
-    }),
+    components: {
+        Notification,
+    },
+
+    data() {
+        return {
+            username: '',
+            email: '',
+            password: '',
+            error: null
+        }
+    },
+
     methods: {
-        async login() {
+        async register() {
             try {
+                await this.$axios.post('register', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password
+                })
+
                 await this.$auth.loginWith('local', {
                     data: {
                         email: this.email,
@@ -29,14 +48,12 @@ export default {
 
                 this.$router.push('/')
             } catch (e) {
-                console.error(e);
                 this.error = e.response.data.message
             }
         }
     }
 }
 </script>
-
 <style scoped>
     form {
         width: 20vw;
