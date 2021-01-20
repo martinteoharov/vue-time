@@ -1,43 +1,21 @@
 <template>
-    <form method="post" @submit.prevent="login">
-        <p> Email: </p>
-        <input name='email' type='email' v-model='email' required />
+    <form action="">
+        <p> Name: </p>
+        <input name='name'/>
         <p> Password: </p>
-        <input name='password' type='password' v-model='password' required />
-        <button > Submit </button>
-        <a href='/register'> Register </a>
+        <input name='password' type='password'/>
+        <button> Submit </button>
     </form>
   
 </template>
 
 <script>
 export default {
-    data: () => ({
-        email: '',
-        password: '',
-        error: null
-    }),
-    methods: {
-        async login() {
-            try {
-                await this.$auth.loginWith('local', {
-                    data: {
-                        email: this.email,
-                        password: this.password
-                    },
-                })
 
-                this.$router.push('/')
-            } catch (e) {
-                console.error(e);
-                this.error = e.response.data.message
-            }
-        }
-    }
 }
 </script>
 
-<style scoped>
+<style>
     form {
         width: 20vw;
         height: 50vh;
@@ -58,12 +36,6 @@ export default {
         position: absolute;
         bottom: 0;
         right: 0;
-        margin: 16px 16px;
-    }
-    form > a { 
-        position: absolute;
-        bottom: 0;
-        left: 0;
         margin: 16px 16px;
     }
 

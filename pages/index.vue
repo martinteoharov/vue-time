@@ -15,13 +15,9 @@
 
 <script>
 export default {
-    // User has to be authed to access this
-    middleware: 'auth',
-
     data: () => ({
         trackerEntries: [],
     }),
-
     methods: {
         // Adds an entry container-main
         addTrackerEntry({name, startDate, endDate, timer}){

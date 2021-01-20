@@ -35,25 +35,13 @@ export default {
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         '@nuxtjs/axios',
-        '@nuxtjs/auth',
     ],
-    
-    // Setup axios module
-    axios: {
-        // BaseURL of Auth API (3333 is the default port of adonis)
-        baseURL: 'http://127.0.0.1:3333/api'
-    },
-    // Setup auth module
     auth: {
-        // Strategies = Options
+        // Options
         strategies: {
-            local : {
-                endpoints: {
-                    login: { url: 'login', method: 'post', propertyName: 'data.token' },
-                    user: { url: 'me', method: 'get', propertyName: 'data' },
-                    logout: false
-                }
-            },
+            customAuth: {
+                scheme: '~/schemes/auth',
+            }
         }
     },
 
