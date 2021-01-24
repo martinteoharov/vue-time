@@ -3,11 +3,11 @@
         <Sidebar/>
         <div class="container container-main">
             <Tracker/>
-            <transition-group  enter-active-class="animate__animated animate__slideInRight" leave-active-class="animate__animated animate__backOutUp" 
+            <transition-group  enter-active-class="animate__animated animate__fadeInUp" leave-active-class="animate__animated animate__fadeOutDown" 
                 tag='div' class='container container-entries'>
 
-                <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry.startDate" 
-                              :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer'/>
+                <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
+                              :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer'/>
             </transition-group>
         </div>
     </div>
@@ -21,15 +21,11 @@ export default {
     data: () => ({
         trackerEntries: [],
     }),
-    apollo: {
-    },
     methods: {
         // Adds an entry container-main
-        addTrackerEntry({name, startDate, endDate, timer}){
-            const mutation = gql`
-                    mutation AddTrackers($name: String!, $startDate:String!, $endDate: String!, $timer: String!) {
-                         addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer)
-                    }`;
+        fetchPostEntry({name, startDate, endDate, timer}){
+            const mutation = gql` mutation AddTrackers($name: String!, $startDate:String!, $endDate: String!, $timer: String!) { addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer){ _id name startDate endDate timer } }`;
+
             console.log(mutation);
             this.$apollo.mutate({
                 mutation: mutation,
@@ -45,19 +41,13 @@ export default {
                     }
                 }
             }).then((res) => {
-                console.log(res);
-                this.trackerEntries.push({name, 'startDate': startDate.toLocaleTimeString(), 'endDate': endDate.toLocaleTimeString(), timer});
+                const lazy = [];
+                lazy.push(res.data.addTracker);
+                this.trackerEntries.push(this.simplifyDate(lazy)[0]);
             });
         },
-        fetchEntries(){
-            const query = gql`
-                    query GetTrackers {
-                        getAllTrackers {
-                            startDate
-                            endDate
-                            timer
-                        }
-                    }`;
+        fetchGetEntries(){
+            const query = gql` query GetTrackers { getAllTrackers { _id name startDate endDate timer } }`;
 
             this.$apollo.query({
                 query: query,
@@ -70,38 +60,61 @@ export default {
                 }
             }).then((res) => {
                 const entries = res.data.getAllTrackers;
-                entries.forEach(element => {
-                    const startDate = new Date(element.startDate).toLocaleTimeString();
-                    element.startDate = startDate;
-                    const endDate = new Date(element.endDate).toLocaleTimeString();
-                    element.endDate = endDate;
-                });
-                this.trackerEntries = res.data.getAllTrackers;
+                this.trackerEntries = this.simplifyDate(entries);
             });
-        }
+        },
+        fetchRmEntry({_id}){
+            const mutation = gql` mutation RemoveTracker($_id: String!) { removeTracker(_id: $_id) }`;
+            console.log(_id);
+            this.$apollo.mutate({
+                mutation: mutation,
+                variables: {
+                    _id,
+                },
+                context: {
+                    headers: {
+                        'authorization': `Bearer ${ this.$store.state.auth.token }`,
+                    }
+                }
+            }).then((res) => {
+                console.log(res);
+                for(const el in this.trackerEntries){
+                    if(this.trackerEntries[el]._id === _id) 
+                        this.trackerEntries.splice(el, 1);
+                }
+            });
+
+        },
+        simplifyDate(arr){
+            arr.forEach(element => {
+                element.startDate = new Date(element.startDate).toLocaleTimeString();
+                element.endDate = new Date(element.endDate).toLocaleTimeString();
+            });
+            return arr;
+        },
     },
     created(){
         this.$nuxt.$on('add-entry', (entry) => {
-            // Append entry to DOM..
-            this.addTrackerEntry(entry);
-
-            // TODO: Send entry to server..
-
+            // Post entry to GraphQL API
+            this.fetchPostEntry(entry);
         });
 
-        this.$nuxt.$on('delete-entry', ({startDate}) => {
+        this.$nuxt.$on('delete-entry', ({_id}) => {
             // Find & Remove entry from DOM..
+            /*
             for(const el in this.trackerEntries){
                 if(this.trackerEntries[el].startDate === startDate) 
                     this.trackerEntries.splice(el, 1);
             }
+            */
+            this.fetchRmEntry({_id});
 
             // TODO: Send remove request to the server..
 
         });
 
         // Fetch all entries
-        this.fetchEntries();
+        this.fetchGetEntries();
     }
 }
 </script>

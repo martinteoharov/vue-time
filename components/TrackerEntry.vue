@@ -12,6 +12,7 @@
 <script>
 export default {
     props: {
+        _id: String,
         name: String,
         startDate: String,
         endDate: String,
@@ -21,10 +22,8 @@ export default {
     }),
     methods: {
         deleteEntry(){
-            console.log(`Delete entry ${this.startDate}`);
-
             // Delete entry... with $this.startDate as identifier
-            this.$nuxt.$emit('delete-entry', {'name': this.name, 'startDate': this.startDate, 'endDate': this.endDate, 'timer': this.timer});
+            this.$nuxt.$emit('delete-entry', {'_id': this._id, 'name': this.name, 'startDate': this.startDate, 'endDate': this.endDate, 'timer': this.timer});
         }
     }
 }
