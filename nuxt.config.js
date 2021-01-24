@@ -23,6 +23,7 @@ export default {
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
+        { src: '~/plugins/vuex-persist', ssr: false }
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -34,13 +35,19 @@ export default {
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
+        '@nuxtjs/apollo',
         '@nuxtjs/axios',
     ],
-    auth: {
-        // Options
-        strategies: {
-            customAuth: {
-                scheme: '~/schemes/auth',
+
+    axios: {
+        // Base URL of GraphQL API (4000)
+        // baseURL: 'http://127.0.0.1:4000'
+    },
+
+    apollo: {
+        clientConfigs: {
+            default: {
+                httpEndpoint: 'http://127.0.0.1:4000/'
             }
         }
     },

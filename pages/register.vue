@@ -1,13 +1,13 @@
 <template>
-    <main> 
-        <h1> Login </h1>
-        <form @submit.prevent='login' action="">
+    <main>
+        <h1> Register </h1>
+        <form @submit.prevent="register" action="">
             <p> Username: </p>
-            <input v-model='username' name='name'/>
+            <input v-model='username' name='username'/>
             <p> Password: </p>
             <input v-model='password' name='password' type='password'/>
-            <button> Submit </button>
-            <a href='/register'>Register</a>
+            <button type='submit'> Submit </button>
+            <a href="/login"> Login </a>
         </form>
     </main>
   
@@ -22,7 +22,7 @@
             password: null,
         }),
         methods: {
-            login (){
+            register (){
                 // Create User obj..
                 const user = {'username': this.username, 'password': this.password};
                 if(!user.username || !user.password) 
@@ -30,23 +30,21 @@
 
                 // Send User obj to apollo server..
                 this.$apollo.mutate({
-                    mutation: gql(`mutation Login($username: String!, $password:String!) {
-                                          login(username: $username, password:$password)
-                                      }`),
+                    mutation: gql(`mutation Register($username: String!, $password:String!) {
+                                      register(username: $username, password:$password)
+                                  }`),
                     variables: {
                         username: this.username,
                         password: this.password
                     }
                 }).then((res) => {
-                    const token = res.data.login || '';
-                    console.log(`Loggin in.. ${ token }`);
+                    const token = res.data.register || '';
                     this.$nuxt.$store.commit('auth/addAuth', { token });
-                    console.log(this.$nuxt.$store.state.auth.token);
                     this.$router.push('/');
                 });
             },
         }
-}
+    }
 </script>
 
 <style scoped>
@@ -68,9 +66,9 @@
         width: 80%;
     }
     form > p {
-        margin-left: 10%;
+        padding-left: 10%;
         padding-top: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 10px;
     }
     form > button {
         position: absolute;

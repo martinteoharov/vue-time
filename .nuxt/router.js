@@ -6,7 +6,9 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _1cb53f98 = () => interopDefault(import('../pages/insights.vue' /* webpackChunkName: "pages/insights" */))
 const _03e094fc = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _7579d9f2 = () => interopDefault(import('../pages/logout.vue' /* webpackChunkName: "pages/logout" */))
 const _ddfe8e92 = () => interopDefault(import('../pages/projects.vue' /* webpackChunkName: "pages/projects" */))
+const _1baadb40 = () => interopDefault(import('../pages/register.vue' /* webpackChunkName: "pages/register" */))
 const _70fde992 = () => interopDefault(import('../pages/reports.vue' /* webpackChunkName: "pages/reports" */))
 const _523bf154 = () => interopDefault(import('../pages/tags.vue' /* webpackChunkName: "pages/tags" */))
 const _3a38f1e5 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -36,9 +38,17 @@ export const routerOptions = {
     component: _03e094fc,
     name: "login"
   }, {
+    path: "/logout",
+    component: _7579d9f2,
+    name: "logout"
+  }, {
     path: "/projects",
     component: _ddfe8e92,
     name: "projects"
+  }, {
+    path: "/register",
+    component: _1baadb40,
+    name: "register"
   }, {
     path: "/reports",
     component: _70fde992,

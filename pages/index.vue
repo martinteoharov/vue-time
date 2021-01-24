@@ -14,29 +14,94 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
+    middleware: 'authenticated',
     data: () => ({
         trackerEntries: [],
     }),
+    apollo: {
+    },
     methods: {
         // Adds an entry container-main
         addTrackerEntry({name, startDate, endDate, timer}){
-            console.log('New entry created..');
-            
-            this.trackerEntries.push({name, 'startDate': startDate.toLocaleTimeString(), 'endDate': endDate.toLocaleTimeString(), timer});
+            const mutation = gql`
+                    mutation AddTrackers($name: String!, $startDate:String!, $endDate: String!, $timer: String!) {
+                         addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer)
+                    }`;
+            console.log(mutation);
+            this.$apollo.mutate({
+                mutation: mutation,
+                variables: {
+                    name,
+                    startDate,
+                    endDate,
+                    timer
+                },
+                context: {
+                    headers: {
+                        'authorization': `Bearer ${ this.$store.state.auth.token }`,
+                    }
+                }
+            }).then((res) => {
+                console.log(res);
+                this.trackerEntries.push({name, 'startDate': startDate.toLocaleTimeString(), 'endDate': endDate.toLocaleTimeString(), timer});
+            });
+        },
+        fetchEntries(){
+            const query = gql`
+                    query GetTrackers {
+                        getAllTrackers {
+                            startDate
+                            endDate
+                            timer
+                        }
+                    }`;
+
+            this.$apollo.query({
+                query: query,
+                variables: {
+                },
+                context: {
+                    headers: {
+                        'authorization': `Bearer ${ this.$store.state.auth.token }`,
+                    }
+                }
+            }).then((res) => {
+                const entries = res.data.getAllTrackers;
+                entries.forEach(element => {
+                    const startDate = new Date(element.startDate).toLocaleTimeString();
+                    element.startDate = startDate;
+                    const endDate = new Date(element.endDate).toLocaleTimeString();
+                    element.endDate = endDate;
+                });
+                this.trackerEntries = res.data.getAllTrackers;
+            });
         }
     },
     created(){
         this.$nuxt.$on('add-entry', (entry) => {
+            // Append entry to DOM..
             this.addTrackerEntry(entry);
+
+            // TODO: Send entry to server..
+
         });
 
         this.$nuxt.$on('delete-entry', ({startDate}) => {
+            // Find & Remove entry from DOM..
             for(const el in this.trackerEntries){
                 if(this.trackerEntries[el].startDate === startDate) 
                     this.trackerEntries.splice(el, 1);
             }
+
+            // TODO: Send remove request to the server..
+
         });
+
+        // Fetch all entries
+        this.fetchEntries();
     }
 }
 </script>

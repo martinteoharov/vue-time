@@ -95,14 +95,13 @@ export default {
     input {
         height: 100%;
         width: 100%;
-        border: 0px;
+        border: none;
         text-indent: 3%;
         font-size: 20px;
         opacity: 0.6;
     }
     input:focus {
         opacity: 1;
-
     }
 
     .timer {
