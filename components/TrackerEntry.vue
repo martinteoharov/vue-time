@@ -48,7 +48,7 @@ export default {
         justify-content: center;
         align-items: center;
 
-        grid-template-columns: 6fr 1.5fr 0.75fr .5fr .1fr;
+        grid-template-columns: 6fr minmax(100px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
         grid-template-rows: 1fr;
     }
 
@@ -73,6 +73,7 @@ export default {
 
         border: 0px;
         background-color: rgba(0, 0, 0, 0.0);
+        outline: none;
     }
     div.delete-entry {
         height: 100%;

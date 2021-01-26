@@ -39,6 +39,8 @@ export default {
                 this.$nuxt.$emit('start-timer', {});
             }
         },
+        inputHandler(e){
+        },
         keyboardNav(e){
             // On keyPress 'enter' toggle the recording and unfocus input box
             if(e.keyCode === 13){
@@ -59,6 +61,10 @@ export default {
 
         window.addEventListener('keydown', this.keyboardNav);
     },
+    mounted() {
+        // $refs gets initialized in the mounted hook, so we can use it..
+        this.$refs.trackerInput.addEventListener('input', this.inputHandler);
+    },
     // Clean up event listeners..
     beforeDestroy(){
         window.removeEventListener('keydown', this.keyboardNav);
@@ -67,7 +73,6 @@ export default {
 </script>
 
 <style scoped>
-
     .container-timer {
         margin: 0 0;
         padding: 0 0;
@@ -110,6 +115,7 @@ export default {
     }
     input:focus {
         opacity: 1;
+        outline: none; /* fuck chrome */
     }
 
     .timer {
