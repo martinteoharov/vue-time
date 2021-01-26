@@ -11,7 +11,7 @@ export default {
     data: () => ({
         isRecording: false,
         timer: null,
-        input: null
+        input: null,
     }),
 
     methods: {
@@ -39,21 +39,29 @@ export default {
                 this.$nuxt.$emit('start-timer', {});
             }
         },
-    },
-    created() {
-        window.addEventListener('keydown', e => {
+        keyboardNav(e){
             // On keyPress 'enter' toggle the recording and unfocus input box
             if(e.keyCode === 13){
                 this.toggleRecording();
                 this.$refs.trackerInput.blur();
             }
-
             // On keyPress 'a' focus the input box
             if(e.keyCode === 65){
                 // Avoid the 'a' that is instantly entered in the input box at first
                 setTimeout(() => this.$refs.trackerInput.focus(), 10); // Super hacky, but we are experts so everything is allowed.
             }
-        });
+        }
+    },
+    created() {
+        this.isRecording = false;
+        this.timer = null;
+        this.input = null;
+
+        window.addEventListener('keydown', this.keyboardNav);
+    },
+    // Clean up event listeners..
+    beforeDestroy(){
+        window.removeEventListener('keydown', this.keyboardNav);
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class='container-entry shadow-box hover-fx'>
         <input v-bind:value="name"/>
-        <p>  {{ `${startDate} - ${endDate} `}}  </p>
+        <p>  {{ `${simplifyDate(startDate)} - ${simplifyDate(endDate)} `}}  </p>
         <p>  {{ timer }} </p>
         <div @click='deleteEntry' class='delete-entry'>
             <p> Delete </p>
@@ -24,8 +24,11 @@ export default {
         deleteEntry(){
             // Delete entry... with $this.startDate as identifier
             this.$nuxt.$emit('delete-entry', {'_id': this._id, 'name': this.name, 'startDate': this.startDate, 'endDate': this.endDate, 'timer': this.timer});
-        }
-    }
+        },
+        simplifyDate(obj){
+            return new Date(obj).toLocaleTimeString();
+        },
+    },
 }
 </script>
 

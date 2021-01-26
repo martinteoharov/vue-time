@@ -64,7 +64,7 @@ export default {
     },
 
     // Clean up event listeners before component is destroyed
-    beforeDetroy() {
+    destroyed() {
         this.$nuxt.$off('start-timer', this.start);
         this.$nuxt.$off('stop-timer', this.stop);
     }
