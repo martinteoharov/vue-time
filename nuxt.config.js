@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export default {
     // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
     ssr: false,
@@ -47,7 +49,7 @@ export default {
     apollo: {
         clientConfigs: {
             default: {
-                httpEndpoint: 'http://localhost:4000/'
+                httpEndpoint: process.env.httpEndpoint || 'http://localhost:4000/'
             }
         }
     },
