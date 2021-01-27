@@ -37,7 +37,7 @@ export default {
         },
         fetchGetEntries(){
             console.log('fetchGetEntries');
-            const query = gql` { getAllTrackers { _id name startDate endDate timer } }`;
+            const query = gql` { getAllTrackers { _id name startDate endDate timer projects tags } }`;
 
             this.$apollo.query({
                 query: query,
