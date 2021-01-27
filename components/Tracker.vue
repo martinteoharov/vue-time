@@ -1,9 +1,12 @@
 <template>
     <main class='container-timer shadow-box'>
         <input ref='trackerInput' v-model='input' type="text" placeholder="What are you working on, bro?"/>
-        <i class="centered-vertically fas fa-folder"></i>
-        <i class="centered-vertically fas fa-tag"></i>
+
+        <Dropdown :items="projects" :icon="'fa-folder'"/>
+        <Dropdown :items="tags" :icon="'fa-tag'"/>
+
         <Timer class="centered-vertically timer"> </Timer>
+
         <i @keydown.enter="toggleRecording" @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
     </main>
 </template>
@@ -15,6 +18,8 @@
             isRecording: false,
             timer: null,
             input: null,
+            projects: [],
+            tags: [],
         }),
 
         methods: {
@@ -43,9 +48,11 @@
                 }
             },
             inputHandler(e){
-                const rtn = SParser.parse(this.input);
+                const rtn = SParser.parse(this.input).tokens;
                 console.log(rtn);
-                console.log(document.getElementsByTagName('input')[0]);
+
+                this.tags = rtn.tags;
+                this.projects = rtn.projects;
             },
             keyboardNav(e){
                 // On keyPress 'enter' toggle the recording and unfocus input box
@@ -67,13 +74,16 @@
 
             window.addEventListener('keydown', this.keyboardNav);
         },
+
         mounted() {
             // $refs gets initialized in the mounted hook, so we can use it..
             this.$refs.trackerInput.addEventListener('input', this.inputHandler);
         },
+
         // Clean up event listeners..
         beforeDestroy(){
             window.removeEventListener('keydown', this.keyboardNav);
+            this.$refs.trackerInput.removeEventListener('input', this.inputHandler);
         }
     }
 </script>
@@ -81,6 +91,8 @@
 <style scoped>
     .container-timer {
         margin: 0 0;
+        b
+        b
         padding: 0 0;
 
         height: 100%;

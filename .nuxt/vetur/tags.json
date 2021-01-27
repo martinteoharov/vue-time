@@ -5,6 +5,12 @@
   "LazyButton": {
     "description": "Auto imported from /components/Button.vue"
   },
+  "Dropdown": {
+    "description": "Auto imported from /components/Dropdown.vue"
+  },
+  "LazyDropdown": {
+    "description": "Auto imported from /components/Dropdown.vue"
+  },
   "Logo": {
     "description": "Auto imported from /components/Logo.vue"
   },
