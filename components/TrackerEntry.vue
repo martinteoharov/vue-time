@@ -40,7 +40,7 @@ export default {
     }
 
     p {
-        text-align: left;
+        text-align: center;
     }
 
     .container-entry {
@@ -48,7 +48,7 @@ export default {
         justify-content: center;
         align-items: center;
 
-        grid-template-columns: 6fr minmax(100px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
+        grid-template-columns: 6fr minmax(200px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
         grid-template-rows: 1fr;
     }
 

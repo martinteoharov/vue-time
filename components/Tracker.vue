@@ -91,8 +91,6 @@
 <style scoped>
     .container-timer {
         margin: 0 0;
-        b
-        b
         padding: 0 0;
 
         height: 100%;
@@ -103,7 +101,7 @@
         align-items: center;
         text-align: center;
 
-        grid-template-columns: 6fr 0.3fr 0.3fr 1fr 0.75fr;
+        grid-template-columns: 6fr minmax(30px, 0.3fr) minmax(30px, 0.3fr) minmax(100px, 1fr) minmax(40px, 0.75fr);
         grid-template-rows: 1fr;
     }
 
