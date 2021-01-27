@@ -1,75 +1,81 @@
 <template>
     <main class='container-timer shadow-box'>
         <input ref='trackerInput' v-model='input' type="text" placeholder="What are you working on, bro?"/>
+        <i class="centered-vertically fas fa-folder"></i>
+        <i class="centered-vertically fas fa-tag"></i>
         <Timer class="centered-vertically timer"> </Timer>
-        <i tabindex=0 @keydown.enter="toggleRecording" @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
+        <i @keydown.enter="toggleRecording" @click="toggleRecording" class="centered-vertically fas" :class="{ 'fa-play': !isRecording, 'fa-stop': isRecording}"></i>
     </main>
 </template>
 
 <script>
-export default {
-    data: () => ({
-        isRecording: false,
-        timer: null,
-        input: null,
-    }),
+    import SParser from '/modules/parser.js'
+    export default {
+        data: () => ({
+            isRecording: false,
+            timer: null,
+            input: null,
+        }),
 
-    methods: {
-        // Read: https://michaelnthiessen.com/this-is-undefined/
-        toggleRecording(){
-            this.isRecording = !this.isRecording;
+        methods: {
+            // Read: https://michaelnthiessen.com/this-is-undefined/
+            toggleRecording(){
+                this.isRecording = !this.isRecording;
 
-            if(!this.isRecording){
-                // Stop Recording
-                this.$nuxt.$emit('stop-timer', {});
+                if(!this.isRecording){
+                    // Stop Recording
+                    this.$nuxt.$emit('stop-timer', {});
 
-                // Store <input> value in $store
-                this.$nuxt.$store.commit('entries/addName', {'name': this.input});
+                    // Store <input> value in $store
+                    this.$nuxt.$store.commit('entries/addName', {'name': this.input});
 
-                // Create an entry with the data from the timer.. 
-                // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
-                // Access data from $store & Append entry to template...
-                this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
+                    // Create an entry with the data from the timer.. 
+                    // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
+                    // Access data from $store & Append entry to template...
+                    this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
 
-                // Clear input box
-                this.input = '';
+                    // Clear input box
+                    this.input = '';
 
-            } else {
-                // User has started recording..
-                this.$nuxt.$emit('start-timer', {});
+                } else {
+                    // User has started recording..
+                    this.$nuxt.$emit('start-timer', {});
+                }
+            },
+            inputHandler(e){
+                const rtn = SParser.parse(this.input);
+                console.log(rtn);
+                console.log(document.getElementsByTagName('input')[0]);
+            },
+            keyboardNav(e){
+                // On keyPress 'enter' toggle the recording and unfocus input box
+                if(e.keyCode === 13){
+                    this.toggleRecording();
+                    this.$refs.trackerInput.blur();
+                }
+                // On keyPress 'a' focus the input box
+                if(e.keyCode === 65){
+                    // Avoid the 'a' that is instantly entered in the input box at first
+                    setTimeout(() => this.$refs.trackerInput.focus(), 10); // Super hacky, but we are experts so everything is allowed.
+                }
             }
         },
-        inputHandler(e){
+        created() {
+            this.isRecording = false;
+            this.timer = null;
+            this.input = null;
+
+            window.addEventListener('keydown', this.keyboardNav);
         },
-        keyboardNav(e){
-            // On keyPress 'enter' toggle the recording and unfocus input box
-            if(e.keyCode === 13){
-                this.toggleRecording();
-                this.$refs.trackerInput.blur();
-            }
-            // On keyPress 'a' focus the input box
-            if(e.keyCode === 65){
-                // Avoid the 'a' that is instantly entered in the input box at first
-                setTimeout(() => this.$refs.trackerInput.focus(), 10); // Super hacky, but we are experts so everything is allowed.
-            }
+        mounted() {
+            // $refs gets initialized in the mounted hook, so we can use it..
+            this.$refs.trackerInput.addEventListener('input', this.inputHandler);
+        },
+        // Clean up event listeners..
+        beforeDestroy(){
+            window.removeEventListener('keydown', this.keyboardNav);
         }
-    },
-    created() {
-        this.isRecording = false;
-        this.timer = null;
-        this.input = null;
-
-        window.addEventListener('keydown', this.keyboardNav);
-    },
-    mounted() {
-        // $refs gets initialized in the mounted hook, so we can use it..
-        this.$refs.trackerInput.addEventListener('input', this.inputHandler);
-    },
-    // Clean up event listeners..
-    beforeDestroy(){
-        window.removeEventListener('keydown', this.keyboardNav);
     }
-}
 </script>
 
 <style scoped>
@@ -85,7 +91,7 @@ export default {
         align-items: center;
         text-align: center;
 
-        grid-template-columns: 8fr 2fr 1fr;
+        grid-template-columns: 6fr 0.3fr 0.3fr 1fr 0.75fr;
         grid-template-rows: 1fr;
     }
 
