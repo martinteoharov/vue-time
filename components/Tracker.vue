@@ -32,15 +32,16 @@
                     this.$nuxt.$emit('stop-timer', {});
 
                     // Store <input> value in $store
-                    this.$nuxt.$store.commit('entries/addName', {'name': this.input});
-
+                    this.$nuxt.$store.commit('entries/addTracker', { 'name': this.input, 'projects': this.projects, 'tags': this.tags });
                     // Create an entry with the data from the timer.. 
                     // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
                     // Access data from $store & Append entry to template...
                     this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
 
-                    // Clear input box
+                    // Clear variables
                     this.input = '';
+                    this.projects = [];
+                    this.tags = [];
 
                 } else {
                     // User has started recording..
@@ -101,7 +102,7 @@
         align-items: center;
         text-align: center;
 
-        grid-template-columns: 6fr minmax(30px, 0.3fr) minmax(30px, 0.3fr) minmax(100px, 1fr) minmax(40px, 0.75fr);
+        grid-template-columns: 6fr minmax(50px, 0.3fr) minmax(50px, 0.3fr) minmax(100px, 1fr) minmax(40px, 0.75fr);
         grid-template-rows: 1fr;
     }
 

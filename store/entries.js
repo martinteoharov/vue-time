@@ -9,8 +9,10 @@ export const mutations = {
         state.trackerEntry.endDate   = endDate;
         state.trackerEntry.timer     = timer;
     },
-    addName(state, { name }){
+    addTracker(state, { name, projects, tags }){
         // Add data to store..
         state.trackerEntry.name = name;
+        state.trackerEntry.projects = projects;
+        state.trackerEntry.tags = tags;
     }
 }

@@ -1,6 +1,10 @@
 <template>
     <div class='container-entry shadow-box hover-fx'>
         <input v-bind:value="name"/>
+
+        <Dropdown class='icon' :items="projects" :icon="'fa-folder'"/>
+        <Dropdown class='icon' :items="tags" :icon="'fa-tag'"/>
+
         <p>  {{ `${simplifyDate(startDate)} - ${simplifyDate(endDate)} `}}  </p>
         <p>  {{ timer }} </p>
         <div @click='deleteEntry' class='delete-entry'>
@@ -16,7 +20,9 @@ export default {
         name: String,
         startDate: String,
         endDate: String,
-        timer: String
+        timer: String,
+        projects: Array,
+        tags: Array
     },
     data: () => ({
     }),
@@ -45,10 +51,12 @@ export default {
 
     .container-entry {
         display: grid;
+
         justify-content: center;
         align-items: center;
+        text-align: center;
 
-        grid-template-columns: 6fr minmax(200px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
+        grid-template-columns: 6fr minmax(50px, 0.3fr) minmax(50px, 0.3fr) minmax(200px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
         grid-template-rows: 1fr;
     }
 
@@ -88,5 +96,10 @@ export default {
         background-color: rgba(245, 24, 58, 0.6);
         visibility: visible;
         user-select: none;
+    }
+
+    .icon {
+        height: 50px;
+        top: calc(50% - 30px); /* 50% - 3/5 of icon height */
     }
 </style>

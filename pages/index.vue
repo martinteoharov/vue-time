@@ -6,7 +6,7 @@
             <transition-group  enter-active-class="animate__animated animate__fadeInUp" leave-active-class="animate__animated animate__fadeOutDown" tag='div' class='container container-entries'>
 
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
-                              :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer'/>
+                              :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
             </transition-group>
         </div>
     </div>
@@ -21,13 +21,13 @@ export default {
         trackerEntries: [],
     }),
     methods: {
-        fetchPostEntry({name, startDate, endDate, timer}){
-            const mutation = gql` mutation ($name: String!, $startDate:String!, $endDate: String!, $timer: String!) { addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer){ _id name startDate endDate timer } }`;
+        fetchPostEntry({ name, startDate, endDate, timer, projects, tags }){
+            const mutation = gql` mutation ($name: String!, $startDate: String!, $endDate: String!, $timer: String!, $projects: [String], $tags: [String]) { addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer, projects: $projects, tags: $tags){ _id name startDate endDate timer projects tags } }`;
 
-            console.log(mutation);
+            console.log({ name, startDate, endDate, timer, projects, tags });
             this.$apollo.mutate({
                 mutation: mutation,
-                variables: { name, startDate, endDate, timer },
+                variables: { name, startDate, endDate, timer, projects, tags },
                 context: {
                     headers: { 'authorization': `Bearer ${ this.$store.state.auth.token }`, }
                 }
