@@ -3,7 +3,7 @@
         <Sidebar/>
         <div class="container container-main">
             <Tracker/>
-            <transition-group  enter-active-class="animate__animated animate__fadeInUp" leave-active-class="animate__animated animate__fadeOutDown" tag='div' class='container container-entries'>
+            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
 
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
                               :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
@@ -114,14 +114,6 @@ export default {
         grid-auto-rows: 10vh;
         grid-row-gap: 10px;
         overflow-y: scroll;
-    }
-
-    /* Transition animations */
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
     }
 
 </style>

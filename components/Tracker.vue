@@ -13,6 +13,7 @@
 
 <script>
     import SParser from '/modules/parser.js'
+    import AutoComplete from '/modules/autocomplete.js'
     export default {
         data: () => ({
             isRecording: false,
@@ -49,11 +50,13 @@
                 }
             },
             inputHandler(e){
-                const rtn = SParser.parse(this.input).tokens;
-                console.log(rtn);
+                const rtn = SParser.parse(this.input);
 
-                this.tags = rtn.tags;
-                this.projects = rtn.projects;
+                this.tags = rtn.tokens.tags;
+                this.projects = rtn.tokens.projects;
+
+                const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
+                const res = AutoComplete.exec(rtn.last.input, src);
             },
             keyboardNav(e){
                 // On keyPress 'enter' toggle the recording and unfocus input box
