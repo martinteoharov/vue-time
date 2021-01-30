@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 export default {
     middleware: 'authenticated',
     data: () => ({
@@ -22,44 +20,20 @@ export default {
     }),
     methods: {
         fetchPostEntry({ name, startDate, endDate, timer, projects, tags }){
-            const mutation = gql` mutation ($name: String!, $startDate: String!, $endDate: String!, $timer: String!, $projects: [String], $tags: [String]) { addTracker(name: $name, startDate: $startDate, endDate: $endDate, timer: $timer, projects: $projects, tags: $tags){ _id name startDate endDate timer projects tags } }`;
-
-            console.log({ name, startDate, endDate, timer, projects, tags });
-            this.$apollo.mutate({
-                mutation: mutation,
-                variables: { name, startDate, endDate, timer, projects, tags },
-                context: {
-                    headers: { 'authorization': `Bearer ${ this.$store.state.auth.token }`, }
-                }
-            }).then((res) => {
-                this.trackerEntries.push(res.data.addTracker);
+            console.log('fetchPostEntry');
+            this.$nuxt.$addTracker({ name, startDate, endDate, timer, projects, tags }).then((res) => {
+                this.trackerEntries.push(res.data.addTracker)
             });
         },
-        fetchGetEntries(){
+        fetchEntries(){
             console.log('fetchGetEntries');
-            const query = gql` { getAllTrackers { _id name startDate endDate timer projects tags } }`;
-
-            this.$apollo.query({
-                query: query,
-                variables: { },
-                context: {
-                    headers: { 'authorization': `Bearer ${ this.$store.state.auth.token }`, }
-                }
-            }).then((res) => {
-                const entries = res.data.getAllTrackers;
-                this.trackerEntries = entries;
+            this.$nuxt.$getAllTrackers.then((res) => {
+                this.trackerEntries = res.data.getAllTrackers;
             });
         },
         fetchRmEntry({_id}){
-            const mutation = gql` mutation RemoveTracker($_id: String!) { removeTracker(_id: $_id) }`;
-            console.log(_id);
-            this.$apollo.mutate({
-                mutation: mutation,
-                variables: { _id, },
-                context: {
-                    headers: { 'authorization': `Bearer ${ this.$store.state.auth.token }`, }
-                }
-            }).then((res) => {
+            console.log('fetchRmEntry');
+            this.$nuxt.$rmTracker({_id}).then((res) => {
                 for(const el in this.trackerEntries){
                     if(this.trackerEntries[el]._id === _id) 
                         this.trackerEntries.splice(el, 1);
@@ -70,7 +44,7 @@ export default {
     created(){
         this.$nuxt.$on('add-entry', this.fetchPostEntry);
         this.$nuxt.$on('delete-entry', this.fetchRmEntry);
-        this.fetchGetEntries();
+        this.fetchEntries();
     },
     mounted(){
         console.log('mounted');
@@ -115,5 +89,4 @@ export default {
         grid-row-gap: 10px;
         overflow-y: scroll;
     }
-
 </style>
