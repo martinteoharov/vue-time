@@ -3,8 +3,9 @@
         <Sidebar/>
         <div class="container container-main">
             <Tracker/>
-            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
 
+            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
+                <h2 v-bind:key="'asd'"> {{ dateNow }} </h2>
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
                               :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
             </transition-group>
@@ -16,21 +17,27 @@
 export default {
     middleware: 'authenticated',
     data: () => ({
+        dateNow: null,
+        dateYesterday: null,
         trackerEntries: [],
     }),
     methods: {
         fetchPostEntry({ name, startDate, endDate, timer, projects, tags }){
             console.log('fetchPostEntry');
-            this.$nuxt.$addTracker({ name, startDate, endDate, timer, projects, tags }).then((res) => {
+
+            const simpleDate = startDate.toLocaleDateString();
+            this.$nuxt.$addTracker({ name, startDate, endDate, simpleDate, timer, projects, tags }).then((res) => {
                 this.trackerEntries.push(res.data.addTracker)
             });
         },
-        fetchEntries(){
+
+        fetchEntriesByDate({ dateNow }){
             console.log('fetchGetEntries');
-            this.$nuxt.$getAllTrackers.then((res) => {
-                this.trackerEntries = res.data.getAllTrackers;
+            this.$nuxt.$getTrackersByDate({ simpleDate: dateNow }).then((res) => {
+                this.trackerEntries = res.data.getTrackersByDate;
             });
         },
+
         fetchRmEntry({_id}){
             console.log('fetchRmEntry');
             this.$nuxt.$rmTracker({_id}).then((res) => {
@@ -42,9 +49,15 @@ export default {
         },
     },
     created(){
+        this.dateNow = (new Date()).toLocaleDateString();
+
+        this.dateYesterday = new Date();
+        this.dateYesterday.setDate(this.dateYesterday.getDate() - 1);
+        this.dateYesterday = this.dateYesterday.toLocaleDateString();
+
+        this.fetchEntriesByDate({ dateNow: this.dateNow });
         this.$nuxt.$on('add-entry', this.fetchPostEntry);
         this.$nuxt.$on('delete-entry', this.fetchRmEntry);
-        this.fetchEntries();
     },
     mounted(){
         console.log('mounted');
@@ -82,6 +95,7 @@ export default {
     .container-entries {
         height: 100%;
         width: 100%;
+        line-height: 2;
 
         padding-top: 5%;
         grid-template-columns: 1fr;
