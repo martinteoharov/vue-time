@@ -3,48 +3,56 @@
     "name": "insights",
     "path": "/insights",
     "component": "/home/martin/time-tracker/pages/insights.vue",
-    "chunkName": "pages/insights"
+    "chunkName": "pages/insights",
+    "_name": "_1cb53f98"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "/home/martin/time-tracker/pages/login.vue",
-    "chunkName": "pages/login"
+    "chunkName": "pages/login",
+    "_name": "_03e094fc"
   },
   {
     "name": "logout",
     "path": "/logout",
     "component": "/home/martin/time-tracker/pages/logout.vue",
-    "chunkName": "pages/logout"
+    "chunkName": "pages/logout",
+    "_name": "_7579d9f2"
   },
   {
     "name": "projects",
     "path": "/projects",
     "component": "/home/martin/time-tracker/pages/projects.vue",
-    "chunkName": "pages/projects"
+    "chunkName": "pages/projects",
+    "_name": "_ddfe8e92"
   },
   {
     "name": "register",
     "path": "/register",
     "component": "/home/martin/time-tracker/pages/register.vue",
-    "chunkName": "pages/register"
+    "chunkName": "pages/register",
+    "_name": "_1baadb40"
   },
   {
     "name": "reports",
     "path": "/reports",
     "component": "/home/martin/time-tracker/pages/reports.vue",
-    "chunkName": "pages/reports"
+    "chunkName": "pages/reports",
+    "_name": "_70fde992"
   },
   {
     "name": "tags",
     "path": "/tags",
     "component": "/home/martin/time-tracker/pages/tags.vue",
-    "chunkName": "pages/tags"
+    "chunkName": "pages/tags",
+    "_name": "_523bf154"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/home/martin/time-tracker/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_3a38f1e5"
   }
 ]

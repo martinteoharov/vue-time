@@ -17,6 +17,8 @@ import nuxt_plugin_plugin_6553a983 from 'nuxt_plugin_plugin_6553a983' // Source:
 import nuxt_plugin_axios_339dc119 from 'nuxt_plugin_axios_339dc119' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_apollomodule_753e63e5 from 'nuxt_plugin_apollomodule_753e63e5' // Source: ./apollo-module.js (mode: 'all')
 import nuxt_plugin_vuexpersist_13f465a2 from 'nuxt_plugin_vuexpersist_13f465a2' // Source: ../plugins/vuex-persist (mode: 'client')
+import nuxt_plugin_parser_46bd31d6 from 'nuxt_plugin_parser_46bd31d6' // Source: ../plugins/parser (mode: 'client')
+import nuxt_plugin_autocomplete_30798a5e from 'nuxt_plugin_autocomplete_30798a5e' // Source: ../plugins/autocomplete (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -216,6 +218,14 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.client && typeof nuxt_plugin_vuexpersist_13f465a2 === 'function') {
     await nuxt_plugin_vuexpersist_13f465a2(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_parser_46bd31d6 === 'function') {
+    await nuxt_plugin_parser_46bd31d6(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_autocomplete_30798a5e === 'function') {
+    await nuxt_plugin_autocomplete_30798a5e(app.context, inject)
   }
 
   // Lock enablePreview in context

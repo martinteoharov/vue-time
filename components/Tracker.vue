@@ -12,8 +12,6 @@
 </template>
 
 <script>
-    import SParser from '/modules/parser.js'
-    import AutoComplete from '/modules/autocomplete.js'
     export default {
         data: () => ({
             isRecording: false,
@@ -50,19 +48,26 @@
                 }
             },
             inputHandler(e){
-                const rtn = SParser.parse(this.input);
+                const rtn = this.$nuxt.$parse(this.input);
 
                 this.tags = rtn.tokens.tags;
                 this.projects = rtn.tokens.projects;
 
                 const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
-                const res = AutoComplete.exec(rtn.last.input, src);
+                const res = this.$nuxt.$AutoComplete(rtn.last.input, src);
             },
             keyboardNav(e){
                 // On keyPress 'enter' toggle the recording and unfocus input box
                 if(e.keyCode === 13){
+                    // If trackerInput is focused, unfocus it 
+                    if(document.activeElement === this.$refs.trackerInput){
+                        this.$refs.trackerInput.blur();
+                        return;
+                    }
+
                     this.toggleRecording();
                     this.$refs.trackerInput.blur();
+
                 }
                 // On keyPress 'a' focus the input box
                 if(e.keyCode === 65){

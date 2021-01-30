@@ -1,3 +1,8 @@
+export default (context, inject) => {
+    inject('parse', msg => parse(msg));
+    inject('parseInner', msg => parseInner(msg));
+}
+
 const parse = (input) => {
 	// Special tokens
 	const tokens = { project: "@", tag: "#" };
@@ -56,6 +61,3 @@ const parseInner = (input) => {
 	const _input = input.replace('&nbsp;', ' ');
 	return { value:_input, ...parse(_input) };
 }
-
-module.exports.parse = parse;
-module.exports.parseInner = parseInner;
