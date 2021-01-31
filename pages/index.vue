@@ -5,8 +5,8 @@
             <Tracker/>
 
             <div class='date'>
-                <h2 v-bind:key="'asd'"> {{ dateNow }} </h2>
-                <date-picker format="MM/dd/yyyy" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
+                <!--- Classes can be found in ~/layouts/default.vue -->
+                <date-picker format="MM/dd/yyyy" input-class="datepicker-input" wrapper-class="datepicker-wrapper":calendar-button="true" :calendar-button-icon="'fa fa-calendar'" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
             </div>
 
             <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
@@ -96,28 +96,16 @@ export default {
         width: 100%;
 
         grid-template-columns: 1fr;
-        grid-template-rows: 2fr 2fr 8fr;
+        grid-template-rows: 1.5fr 3fr 8fr;
     }
     .container-entries {
         height: 100%;
         width: 100%;
         line-height: 2;
 
-        padding-top: 20px;
         grid-template-columns: 1fr;
         grid-auto-rows: 10vh;
         grid-row-gap: 10px;
         overflow-y: scroll;
-    }
-    .date {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: visible !important;
-    }
-    .datepicker {
-        display: inline-block;
-        overflow: visible !important;
     }
 </style>

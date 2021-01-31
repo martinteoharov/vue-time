@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <Sidebar>
-        </Sidebar>
+        <Sidebar/>
         Projects.
     </div>
 </template>

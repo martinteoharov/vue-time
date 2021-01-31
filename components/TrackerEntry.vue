@@ -58,6 +58,7 @@ export default {
 
         grid-template-columns: 6fr minmax(50px, 0.3fr) minmax(50px, 0.3fr) minmax(200px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
         grid-template-rows: 1fr;
+        border-radius: 15px;
     }
 
     .shadow-box {
@@ -65,10 +66,10 @@ export default {
         -webkit-box-shadow: 0px 5px 8px -7px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 5px 8px -7px rgba(0,0,0,0.75);
         box-shadow: 0px 5px 8px -7px rgba(0,0,0,0.75);
-        background-color: rgba(185, 167, 196, 0.1);
+        background-color: rgba(185, 167, 196, 0.25);
     }
     .shadow-box:hover {
-        background-color: rgba(185, 167, 196, 0.2);
+        background-color: rgba(185, 167, 196, 0.4);
     }
 
     input { 
@@ -91,6 +92,7 @@ export default {
         align-items: center;
         justify-items: center;
         visibility: hidden;
+        border-radius: 5px;
     }
     .hover-fx:hover .delete-entry {
         background-color: rgba(245, 24, 58, 0.6);
