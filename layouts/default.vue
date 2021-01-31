@@ -1,6 +1,10 @@
 <template>
-    <div>
-        <Nuxt />
+    <div class='container container-screen'>
+        <Sidebar/>
+        <div class='container container-main'>
+            <Tracker/>
+            <Nuxt />
+        </div>
     </div>
 </template>
 
@@ -51,6 +55,7 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555; 
     }
+
     /* Calendar on Index.vue */
     .date {
         display: grid;
@@ -71,5 +76,28 @@
         border-bottom: 1px solid black;
         outline: none;
         width: 125px;
+    }
+
+    /* Grid */
+    .container {
+        margin: 0 0;
+        padding: 0 0;
+        display: grid;
+        justify-content:  center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .container-screen {
+        height: 100vh;
+        width: 100vw;
+        grid-template-columns: 1fr 6fr;
+    }
+
+    .container-main {
+        height: 100%;
+        width: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 6fr;
     }
 </style>

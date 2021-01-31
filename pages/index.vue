@@ -1,19 +1,15 @@
 <template>
-    <div class="container container-screen">
-        <Sidebar/>
-        <div class="container container-main">
-            <Tracker/>
+    <div class="container container-main">
 
-            <div class='date'>
-                <!--- Classes can be found in ~/layouts/default.vue -->
-                <date-picker format="MM/dd/yyyy" input-class="datepicker-input" wrapper-class="datepicker-wrapper":calendar-button="true" :calendar-button-icon="'fa fa-calendar'" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
-            </div>
-
-            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
-                <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
-                              :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
-            </transition-group>
+        <div class='date'>
+            <!--- Classes can be found in ~/layouts/default.vue -->
+            <date-picker format="MM/dd/yyyy" input-class="datepicker-input" wrapper-class="datepicker-wrapper":calendar-button="true" :calendar-button-icon="'fa fa-calendar'" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
         </div>
+
+        <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
+            <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
+                          :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
+        </transition-group>
     </div>
 </template>
 
@@ -86,17 +82,10 @@ export default {
         align-items: center;
         text-align: center;
     }
-    .container-screen {
-        height: 100vh;
-        width: 100vw;
-        grid-template-columns: 1fr 6fr;
-    }
     .container-main {
         height: 100%;
         width: 100%;
-
-        grid-template-columns: 1fr;
-        grid-template-rows: 1.5fr 3fr 8fr;
+        grid-template-rows: 2fr 6fr;
     }
     .container-entries {
         height: 100%;

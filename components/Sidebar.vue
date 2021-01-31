@@ -28,7 +28,7 @@ export default {
     main {
         height: 100vh;
         text-align: center;
-        min-width: 200px;
+        min-width: 180px;
 
         /* Main Color */
         color: #6e6968; 
