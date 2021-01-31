@@ -4,8 +4,12 @@
         <div class="container container-main">
             <Tracker/>
 
-            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
+            <div class='date'>
                 <h2 v-bind:key="'asd'"> {{ dateNow }} </h2>
+                <date-picker format="MM/dd/yyyy" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
+            </div>
+
+            <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
                 <TrackerEntry v-for="entry in trackerEntries" v-bind:key="entry._id" 
                               :_id='entry._id' :name='entry.name' :startDate='entry.startDate' :endDate='entry.endDate' :timer='entry.timer' :projects='entry.projects' :tags='entry.tags' />
             </transition-group>
@@ -18,7 +22,6 @@ export default {
     middleware: 'authenticated',
     data: () => ({
         dateNow: null,
-        dateYesterday: null,
         trackerEntries: [],
     }),
     methods: {
@@ -48,12 +51,15 @@ export default {
             });
         },
     },
+    watch: {
+        // Try to avoid this..
+        dateNow: function(val){ 
+            this.dateNow = new Date(val).toLocaleDateString();
+            this.fetchEntriesByDate({ dateNow: this.dateNow });
+        }
+    },
     created(){
         this.dateNow = (new Date()).toLocaleDateString();
-
-        this.dateYesterday = new Date();
-        this.dateYesterday.setDate(this.dateYesterday.getDate() - 1);
-        this.dateYesterday = this.dateYesterday.toLocaleDateString();
 
         this.fetchEntriesByDate({ dateNow: this.dateNow });
         this.$nuxt.$on('add-entry', this.fetchPostEntry);
@@ -90,17 +96,28 @@ export default {
         width: 100%;
 
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 6fr;
+        grid-template-rows: 2fr 2fr 8fr;
     }
     .container-entries {
         height: 100%;
         width: 100%;
         line-height: 2;
 
-        padding-top: 5%;
+        padding-top: 20px;
         grid-template-columns: 1fr;
         grid-auto-rows: 10vh;
         grid-row-gap: 10px;
         overflow-y: scroll;
+    }
+    .date {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: visible !important;
+    }
+    .datepicker {
+        display: inline-block;
+        overflow: visible !important;
     }
 </style>
