@@ -33,7 +33,7 @@ export default {
         /* Main Color */
         color: #6e6968; 
         /* Main Background Color */
-        background-color: #1B1725;
+        background-color: #212436;
     }
 
     h1 {
@@ -48,16 +48,18 @@ export default {
         margin-top: 5%;
         margin-left: auto;
         margin-right: auto;
-        width: 95%;
+        width: 90%;
         text-align: left;
         text-indent: 5%;
-        background-color: inherit;
+        background-color: #C4C4C4;
+        background-color: rgba(196, 196, 196, 0.1);
         border-radius: 5px;
+        color: white;
     }
 
     .button-active {
-        color: #efdbff; 
-        background-color: inherit;
+        color: white; 
+        background-color: rgba(196, 196, 196, 0.4);
     }
 
     i {

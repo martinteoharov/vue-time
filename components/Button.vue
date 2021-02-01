@@ -25,7 +25,7 @@ export default {
         margin-right: auto;
 
         line-height: 5vh;
-        font-size: 18px;
+        font-size: 16px;
         text-decoration: none;
         color: inherit;
         letter-spacing: 2px;

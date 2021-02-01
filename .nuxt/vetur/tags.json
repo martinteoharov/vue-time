@@ -11,11 +11,23 @@
   "LazyDropdown": {
     "description": "Auto imported from /components/Dropdown.vue"
   },
+  "Features": {
+    "description": "Auto imported from /components/Features.vue"
+  },
+  "LazyFeatures": {
+    "description": "Auto imported from /components/Features.vue"
+  },
   "Logo": {
     "description": "Auto imported from /components/Logo.vue"
   },
   "LazyLogo": {
     "description": "Auto imported from /components/Logo.vue"
+  },
+  "Projects": {
+    "description": "Auto imported from /components/Projects.vue"
+  },
+  "LazyProjects": {
+    "description": "Auto imported from /components/Projects.vue"
   },
   "Sidebar": {
     "description": "Auto imported from /components/Sidebar.vue"

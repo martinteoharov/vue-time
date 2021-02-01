@@ -64,9 +64,10 @@
         overflow: visible !important;
         color: black;
         border-bottom: 1px solid black;
+        opacity: 0.8;
     }
     .layout-datepicker:hover {
-        border-bottom: 2px solid black;
+        opacity: 1;
     }
     .layout-datepicker-input {
         border: 0px solid black;

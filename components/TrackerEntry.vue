@@ -58,7 +58,7 @@ export default {
 
         grid-template-columns: 6fr minmax(50px, 0.3fr) minmax(50px, 0.3fr) minmax(200px, 1.75fr) minmax(100px, .75fr) minmax(60px, .5fr) .1fr;
         grid-template-rows: 1fr;
-        border-radius: 15px;
+        border-radius: 4px;
     }
 
     .shadow-box {
@@ -92,7 +92,7 @@ export default {
         align-items: center;
         justify-items: center;
         visibility: hidden;
-        border-radius: 5px;
+        border-radius: 2px;
     }
     .hover-fx:hover .delete-entry {
         background-color: rgba(245, 24, 58, 0.6);
