@@ -3,7 +3,7 @@
 
         <div class='date'>
             <!--- Classes can be found in ~/layouts/default.vue -->
-            <date-picker format="MM/dd/yyyy" input-class="datepicker-input" wrapper-class="datepicker-wrapper":calendar-button="true" :calendar-button-icon="'fa fa-calendar'" class='datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
+            <date-picker format="MM/dd/yyyy" input-class="layout-datepicker-input" calendar-button="true" calendar-button-icon="fa fa-calendar" class='layout-datepicker' v-bind:key="'asdf'" placeholder="MM/DD/YYYY" v-model="dateNow"></date-picker>
         </div>
 
         <transition-group  enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" tag='div' class='container container-entries'>
@@ -85,7 +85,7 @@ export default {
     .container-main {
         height: 100%;
         width: 100%;
-        grid-template-rows: 2fr 6fr;
+        grid-template-rows: 1.2fr 6fr;
     }
     .container-entries {
         height: 100%;
@@ -96,5 +96,12 @@ export default {
         grid-auto-rows: 10vh;
         grid-row-gap: 10px;
         overflow-y: scroll;
+    }
+    .date {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: visible !important;
     }
 </style>

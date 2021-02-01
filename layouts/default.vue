@@ -1,13 +1,15 @@
 <template>
-    <div class='container container-screen'>
+    <div class='layout-container layout-container-screen'>
         <Sidebar/>
-        <div class='container container-main'>
+        <div class='layout-container layout-container-main'>
             <Tracker/>
             <Nuxt />
         </div>
     </div>
 </template>
 
+<!--- GLOBAL CSS --> 
+<!--- Use 'layout' as a prefix for any class here --> 
 <style>
     html {
         font-family:
@@ -56,30 +58,26 @@
         background: #555; 
     }
 
-    /* Calendar on Index.vue */
-    .date {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: visible !important;
-    }
-    .datepicker {
+    /* Calendar in Index.vue */
+    .layout-datepicker {
         display: inline-block;
         overflow: visible !important;
-        color: gray;
+        color: black;
+        border-bottom: 1px solid black;
     }
-    .datepicker-input {
+    .layout-datepicker:hover {
+        border-bottom: 2px solid black;
+    }
+    .layout-datepicker-input {
         border: 0px solid black;
         text-align: center;
         font-size: 20px;
-        border-bottom: 1px solid black;
         outline: none;
         width: 125px;
     }
 
     /* Grid */
-    .container {
+    .layout-container {
         margin: 0 0;
         padding: 0 0;
         display: grid;
@@ -88,13 +86,13 @@
         text-align: center;
     }
 
-    .container-screen {
+    .layout-container-screen {
         height: 100vh;
         width: 100vw;
         grid-template-columns: 1fr 6fr;
     }
 
-    .container-main {
+    .layout-container-main {
         height: 100%;
         width: 100%;
         grid-template-columns: 1fr;

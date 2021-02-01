@@ -59,8 +59,8 @@
             keyboardNav(e){
                 // On keyPress 'enter' toggle the recording and unfocus input box
                 if(e.keyCode === 13){
-                    // If trackerInput is focused, unfocus it 
-                    if(document.activeElement === this.$refs.trackerInput){
+                    // If trackerInput is focused, unfocus it - making the user click enter twice
+                    if(document.activeElement === this.$refs.trackerInput && this.isRecording){
                         this.$refs.trackerInput.blur();
                         return;
                     }

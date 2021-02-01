@@ -12,7 +12,7 @@
 export default {
     data: () => ({
         links: [
-            { type: 'button', name: 'Timer',    link: '/',         icon: 'fa-clock'       },
+            { type: 'button', name: 'Track',    link: '/',         icon: 'fa-clock'       },
             { type: 'button', name: 'Reports',  link: '/reports',  icon: 'fa-sticky-note' },
             { type: 'button', name: 'Insights', link: '/insights', icon: 'fa-lightbulb'   },
             { type: 'button', name: 'Projects', link: '/projects', icon: 'fa-folder'      },
