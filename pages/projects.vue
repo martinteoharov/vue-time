@@ -1,7 +1,7 @@
 <template>
     <div class='container container-main'>
         <div class='box-projects box-shadow'>
-            <Projects :names="names" />
+            <Projects :projects="projects" />
         </div>    
         <div class='box-features box-shadow'>
             Features.
@@ -12,8 +12,15 @@
 <script>
 export default {
     data: () => ({
-        names: ['TimeTrack', 'Maika Ti', 'HAHa basi qkiq proekt bro', 'niiiice'],
+        projects: [],
     }),
+    methods: {
+    },
+    created(){
+        this.$nuxt.$getAllProjects.then((res) => {
+            this.projects = res.data.getAllProjects;
+        });
+    }
 }
 </script>
 

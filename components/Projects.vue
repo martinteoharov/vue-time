@@ -4,7 +4,7 @@
         <input type="text" placeholder="Search...">
 
         <div class='container container-projects-names'>
-            <a class='entry' v-for="name in names" v-bind:key="name"> {{ name }} </a>
+            <a class='entry' v-for="project in projects" v-bind:key="project.name"> {{ project.name }} </a>
         </div>
 
     </main>
@@ -13,7 +13,7 @@
 <script>
 export default {
     props: {
-        names: Array
+        projects: Array
     },
     data: () => ({
     }),

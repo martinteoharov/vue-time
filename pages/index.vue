@@ -19,11 +19,10 @@ export default {
     data: () => ({
         dateNow: null,
         trackerEntries: [],
+        projects: []
     }),
     methods: {
         fetchPostEntry({ name, startDate, endDate, timer, projects, tags }){
-            console.log('fetchPostEntry');
-
             const simpleDate = startDate.toLocaleDateString();
             this.$nuxt.$addTracker({ name, startDate, endDate, simpleDate, timer, projects, tags }).then((res) => {
                 this.trackerEntries.push(res.data.addTracker)
@@ -31,14 +30,12 @@ export default {
         },
 
         fetchEntriesByDate({ dateNow }){
-            console.log('fetchGetEntries');
             this.$nuxt.$getTrackersByDate({ simpleDate: dateNow }).then((res) => {
                 this.trackerEntries = res.data.getTrackersByDate;
             });
         },
 
         fetchRmEntry({_id}){
-            console.log('fetchRmEntry');
             this.$nuxt.$rmTracker({_id}).then((res) => {
                 for(const el in this.trackerEntries){
                     if(this.trackerEntries[el]._id === _id) 
@@ -46,6 +43,11 @@ export default {
                 }
             });
         },
+        fetchProjects(){
+            this.$nuxt.$getAllProjects.then((res) => {
+                this.projects = res.data.getAllProjects;
+            });
+        }
     },
     watch: {
         // Try to avoid this..
@@ -57,6 +59,7 @@ export default {
     created(){
         this.dateNow = (new Date()).toLocaleDateString();
 
+        this.fetchProjects();
         this.fetchEntriesByDate({ dateNow: this.dateNow });
         this.$nuxt.$on('add-entry', this.fetchPostEntry);
         this.$nuxt.$on('delete-entry', this.fetchRmEntry);
