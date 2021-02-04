@@ -40,7 +40,7 @@
                     this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
 
                     // Fetch projects again to check if there are newly created ones
-                    this.fetchProjects();
+                    // this.fetchProjects();
 
                     // Clear variables
                     this.input = '';
@@ -61,7 +61,6 @@
 
                 // Remove duplicated items between newly created projects & projects already known to exist
                 this.projects = this.$nuxt.$removeDuplicates(this.projects.concat(this.fetchedProjects));
-                
 
                 /* --------- AutoCompletion --------- */
                 const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
