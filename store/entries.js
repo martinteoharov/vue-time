@@ -14,5 +14,5 @@ export const mutations = {
         state.trackerEntry.name = name;
         state.trackerEntry.projects = projects;
         state.trackerEntry.tags = tags;
-    }
+    },
 }

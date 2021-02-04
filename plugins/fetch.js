@@ -37,13 +37,21 @@ const addTracker = async(context, { name, startDate, endDate, simpleDate, timer,
     return res;
 };
 
+// GraphQL Caches stuff.. 
+// TODO: Figure out how to bypass caching & force execute this function
 const getTrackersByDate = async(context, { simpleDate }) => {
     console.log('plugins/fetch.js: getTrackersByDate');
 
-    const query = gql` query GetTrackersByDate($simpleDate: String!) { getTrackersByDate(simpleDate: $simpleDate) { _id name startDate endDate simpleDate timer projects tags } }`;
+    const query = gql` query ($simpleDate: String!) { getTrackersByDate(simpleDate: $simpleDate) { _id name startDate endDate simpleDate timer projects tags } }`;
 
     const res = await context.app.apolloProvider.clients.defaultClient.query({
-        query: query,
+        query: { 
+            ...query,
+            fetchPolicy: 'no-cache'
+        },
+        watchQuery: {
+            fetchPolicy: 'no-cache'
+        },
         variables: { simpleDate },
         context: {
             headers: { 'authorization': `Bearer ${ context.store.state.auth.token }`, }
@@ -101,6 +109,7 @@ const getAllProjects = async(context) => {
     return res;
 }
 
+/* Use only in *Projects* NOT in *Track* */
 const addProject = async(context, { name }) => {
     console.log('plugins/fetch.js: addProject');
 

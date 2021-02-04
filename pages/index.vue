@@ -25,9 +25,13 @@ export default {
     methods: {
         fetchPostEntry({ name, startDate, endDate, timer, projects, tags }){
             const simpleDate = startDate.toLocaleDateString();
+
+            // Send tracker to server..
             this.$nuxt.$addTracker({ name, startDate, endDate, simpleDate, timer, projects, tags }).then((res) => {
-                this.trackerEntries.push(res.data.addTracker)
+                if(this.dateNow == res.data.addTracker.simpleDate)
+                    this.trackerEntries.push(res.data.addTracker)
             });
+
         },
 
         fetchEntriesByDate({ dateNow }){
@@ -48,9 +52,12 @@ export default {
     watch: {
         // Try to avoid this..
         dateNow: function(val){ 
+            // This causes the watcher to fire twice, figure out a better way..
             this.dateNow = new Date(val).toLocaleDateString();
 
-            // This is called 2 times because we change the date toLocaleDateString...
+            // This is completely useless right now..
+            // GraphQL Uses Caching for queries of the same type/name - figure out how to bypass caching & force execute a
+            // certain query
             this.fetchEntriesByDate({ dateNow: this.dateNow });
         }
     },

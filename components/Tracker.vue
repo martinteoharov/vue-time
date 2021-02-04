@@ -16,7 +16,8 @@
         data: () => ({
             isRecording: false,
             timer: null,
-            input: null,
+            input: '',
+            fetchedProjects: [],
             projects: [],
             tags: [],
         }),
@@ -29,13 +30,17 @@
                 if(!this.isRecording){
                     // Stop Recording
                     this.$nuxt.$emit('stop-timer', {});
+                    console.log(`Projets: ${ this.projects }`);
 
-                    // Store <input> value in $store
+                    // Store <input> value, projects & tags in $store
                     this.$nuxt.$store.commit('entries/addTracker', { 'name': this.input, 'projects': this.projects, 'tags': this.tags });
                     // Create an entry with the data from the timer.. 
                     // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
-                    // Access data from $store & Append entry to template...
+                    // Access data from $store & Append entry to template
                     this.$nuxt.$emit('add-entry', this.$store.state.entries.trackerEntry);
+
+                    // Fetch projects again to check if there are newly created ones
+                    this.fetchProjects();
 
                     // Clear variables
                     this.input = '';
@@ -47,12 +52,16 @@
                     this.$nuxt.$emit('start-timer', {});
                 }
             },
-            inputHandler(e){
+            inputHandler(){
+                /* --------- Parse Input --------- */
                 const rtn = this.$nuxt.$parse(this.input);
 
                 this.tags = rtn.tokens.tags;
                 this.projects = rtn.tokens.projects;
 
+                this.projects = this.projects.concat(this.fetchedProjects);
+
+                /* --------- AutoCompletion --------- */
                 const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
                 const res = this.$nuxt.$AutoComplete(rtn.last.input, src);
             },
@@ -77,15 +86,18 @@
             },
             fetchProjects(){
                 this.$nuxt.$getAllProjects.then((res) => {
-                    this.projects = res.data.getAllProjects;
-                    console.log(this.projects);
+                    this.fetchedProjects = res.data.getAllProjects.map(function(item) {
+                        return item.name;
+                    });
+                    // Update Projects
+                    this.inputHandler();
                 });
             }
         },
         created() {
             this.isRecording = false;
             this.timer = null;
-            this.input = null;
+            this.input = '';
 
             window.addEventListener('keydown', this.keyboardNav);
 
