@@ -36,6 +36,9 @@ export default {
 
         /* DatePicker */
         { src: '~/plugins/vue-datepicker', mode:'client' },
+
+        /* Helpers */
+        { src: '~/plugins/helpers', mode:'client' },
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)

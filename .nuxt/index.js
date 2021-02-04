@@ -21,6 +21,7 @@ import nuxt_plugin_parser_46bd31d6 from 'nuxt_plugin_parser_46bd31d6' // Source:
 import nuxt_plugin_autocomplete_30798a5e from 'nuxt_plugin_autocomplete_30798a5e' // Source: ../plugins/autocomplete (mode: 'client')
 import nuxt_plugin_fetch_34eab5f8 from 'nuxt_plugin_fetch_34eab5f8' // Source: ../plugins/fetch (mode: 'client')
 import nuxt_plugin_vuedatepicker_19e66559 from 'nuxt_plugin_vuedatepicker_19e66559' // Source: ../plugins/vue-datepicker (mode: 'client')
+import nuxt_plugin_helpers_16d71a4f from 'nuxt_plugin_helpers_16d71a4f' // Source: ../plugins/helpers (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -236,6 +237,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.client && typeof nuxt_plugin_vuedatepicker_19e66559 === 'function') {
     await nuxt_plugin_vuedatepicker_19e66559(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_helpers_16d71a4f === 'function') {
+    await nuxt_plugin_helpers_16d71a4f(app.context, inject)
   }
 
   // Lock enablePreview in context

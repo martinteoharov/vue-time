@@ -59,7 +59,9 @@
                 this.tags = rtn.tokens.tags;
                 this.projects = rtn.tokens.projects;
 
-                this.projects = this.projects.concat(this.fetchedProjects);
+                // Remove duplicated items between newly created projects & projects already known to exist
+                this.projects = this.$nuxt.$removeDuplicates(this.projects.concat(this.fetchedProjects));
+                
 
                 /* --------- AutoCompletion --------- */
                 const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
@@ -89,6 +91,7 @@
                     this.fetchedProjects = res.data.getAllProjects.map(function(item) {
                         return item.name;
                     });
+                    console.log(this.fetchedProjects);
                     // Update Projects
                     this.inputHandler();
                 });
