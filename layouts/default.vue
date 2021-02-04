@@ -1,7 +1,7 @@
 <template>
     <div class='layout-container layout-container-screen'>
         <Sidebar/>
-        <Nuxt />
+        <Nuxt keep-alive/>
     </div>
 </template>
 
