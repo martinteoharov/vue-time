@@ -64,6 +64,7 @@ export default {
     created(){
         this.dateNow = (new Date()).toLocaleDateString();
 
+        console.log('TrackerEntries:',this.trackerEntries);
         this.fetchEntriesByDate({ dateNow: this.dateNow });
         this.$nuxt.$on('add-entry', this.fetchPostEntry);
         this.$nuxt.$on('delete-entry', this.fetchRmEntry);

@@ -2,7 +2,7 @@
     <main class='container-timer shadow-box'>
         <input ref='trackerInput' v-model='input' type="text" placeholder="What are you working on, bro?"/>
 
-        <Dropdown :items="projects" :icon="'fa-folder'"/>
+        <Dropdown :items="dropdownProjects" :icon="'fa-folder'"/>
         <Dropdown :items="tags" :icon="'fa-tag'"/>
 
         <Timer class="centered-vertically timer"> </Timer>
@@ -18,7 +18,8 @@
             timer: null,
             input: '',
             fetchedProjects: [],
-            projects: [],
+            dropdownProjects: [],
+            activeProjects: [],
             tags: [],
         }),
 
@@ -30,10 +31,10 @@
                 if(!this.isRecording){
                     // Stop Recording
                     this.$nuxt.$emit('stop-timer', {});
-                    console.log(`Projets: ${ this.projects }`);
+                    console.log(`Projets: ${ this.activeProjects}`);
 
                     // Store <input> value, projects & tags in $store
-                    this.$nuxt.$store.commit('entries/addTracker', { 'name': this.input, 'projects': this.projects, 'tags': this.tags });
+                    this.$nuxt.$store.commit('entries/addTracker', { 'name': this.input, 'projects': this.activeProjects, 'tags': this.tags });
                     // Create an entry with the data from the timer.. 
                     // { $name: String, $tags: [$name, $name, ..], $dateStarted: Date, $dateEnded: Date, $timeElapsed: {hs, mn, sc} }
                     // Access data from $store & Append entry to template
@@ -44,8 +45,7 @@
 
                     // Clear variables
                     this.input = '';
-                    this.projects = [];
-                    this.tags = [];
+                    this.activeProjects = [];
 
                 } else {
                     // User has started recording..
@@ -57,10 +57,10 @@
                 const rtn = this.$nuxt.$parse(this.input);
 
                 this.tags = rtn.tokens.tags;
-                this.projects = rtn.tokens.projects;
+                this.activeProjects = rtn.tokens.projects;
 
                 // Remove duplicated items between newly created projects & projects already known to exist
-                this.projects = this.$nuxt.$removeDuplicates(this.projects.concat(this.fetchedProjects));
+                this.dropdownProjects = this.$nuxt.$removeDuplicates(this.activeProjects.concat(this.fetchedProjects));
 
                 /* --------- AutoCompletion --------- */
                 const src = (rtn.last.type === 'tag' ? ['gotini', 'golemi'] : ['nikoi']);
