@@ -74,6 +74,12 @@
                     // Avoid the 'a' that is instantly entered in the input box at first
                     setTimeout(() => this.$refs.trackerInput.focus(), 10); // Super hacky, but we are experts so everything is allowed.
                 }
+            },
+            fetchProjects(){
+                this.$nuxt.$getAllProjects.then((res) => {
+                    this.projects = res.data.getAllProjects;
+                    console.log(this.projects);
+                });
             }
         },
         created() {
@@ -82,6 +88,8 @@
             this.input = null;
 
             window.addEventListener('keydown', this.keyboardNav);
+
+            this.fetchProjects();
         },
 
         mounted() {

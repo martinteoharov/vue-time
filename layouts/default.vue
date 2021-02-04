@@ -1,10 +1,7 @@
 <template>
     <div class='layout-container layout-container-screen'>
         <Sidebar/>
-        <div class='layout-container layout-container-main'>
-            <Tracker/>
-            <Nuxt />
-        </div>
+        <Nuxt />
     </div>
 </template>
 

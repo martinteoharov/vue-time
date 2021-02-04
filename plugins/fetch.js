@@ -23,28 +23,13 @@ export default (context, inject) => {
 const addTracker = async(context, { name, startDate, endDate, simpleDate, timer, projects, tags }) => {
     console.log('plugins/fetch.js: addTracker');
 
+    // TODO: Get projects & tags and submit them to the server aswell...
+
     const mutation = gql` mutation ($name: String!, $startDate: String!, $endDate: String!, $simpleDate: String!, $timer: String!, $projects: [String], $tags: [String]) { addTracker(name: $name, startDate: $startDate, endDate: $endDate, simpleDate: $simpleDate, timer: $timer, projects: $projects, tags: $tags){ _id name startDate endDate simpleDate timer projects tags } }`;
 
     const res = await context.app.apolloProvider.clients.defaultClient.mutate({
         mutation: mutation,
         variables: { name, startDate, endDate, simpleDate, timer, projects, tags },
-        context: {
-            headers: { 'authorization': `Bearer ${ context.store.state.auth.token }`, }
-        }
-    });
-    return res;
-};
-
-/* Unused */
-const getAllTrackers = async(context) => {
-    console.log('plugins/fetch.js: getAllTrackers');
-    console.log(context);
-
-    const query = gql` { getAllTrackers { _id name startDate endDate simpleDate timer projects tags } }`;
-
-    const res = await context.app.apolloProvider.clients.defaultClient.query({
-        query: query,
-        variables: {},
         context: {
             headers: { 'authorization': `Bearer ${ context.store.state.auth.token }`, }
         }
@@ -75,6 +60,23 @@ const rmTracker = async(context, { _id }) => {
     const res = await context.app.apolloProvider.clients.defaultClient.mutate({
         mutation: mutation,
         variables: { _id, },
+        context: {
+            headers: { 'authorization': `Bearer ${ context.store.state.auth.token }`, }
+        }
+    });
+    return res;
+};
+
+/* Unused */
+const getAllTrackers = async(context) => {
+    console.log('plugins/fetch.js: getAllTrackers');
+    console.log(context);
+
+    const query = gql` { getAllTrackers { _id name startDate endDate simpleDate timer projects tags } }`;
+
+    const res = await context.app.apolloProvider.clients.defaultClient.query({
+        query: query,
+        variables: {},
         context: {
             headers: { 'authorization': `Bearer ${ context.store.state.auth.token }`, }
         }
